@@ -1,16 +1,24 @@
 import React from "react";
-import { View, Text } from "react-native";
+import { View, Text, FlatList } from "react-native";
 
-import Button from "../../components/Button";
+import { type script, scripts } from "../../constants/sampleData";
+import { ScriptCard } from "../../components/ScriptCard";
+import { getUniqueId } from "../../utils/helpers";
 import { styles } from "./styles";
-import type { HomeProps } from "../../routes/MainRouteTypes";
 
-export function HomeScreen({navigation}: HomeProps) {
-  const onButtonPress = () => navigation.navigate("Player")
+export function HomeScreen() {
+  const keyExtractor = (item: { id: string }) => item?.id ?? getUniqueId();
+  const renderItem = ({ item }: { item: script }) => (
+    <ScriptCard {...{ item }} />
+  );
   return (
     <View style={styles.container}>
-      <Text style={styles.content}>Home</Text>
-      <Button style={styles.btn} textStyle={styles.txt} onPress={onButtonPress}>Play Recordings</Button>
+      <Text style={styles.content}>Guided Meditations</Text>
+      <FlatList
+        style={styles.list}
+        data={scripts}
+        {...{ keyExtractor, renderItem }}
+      />
     </View>
   );
 }
