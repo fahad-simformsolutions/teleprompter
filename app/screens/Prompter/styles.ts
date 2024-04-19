@@ -1,25 +1,29 @@
 import { StyleSheet } from "react-native";
+import { palette } from "../../theme/colors";
 
 export const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#fff",
+    backgroundColor: palette.white,
     paddingBottom: 10,
   },
   content: {
-    color: "#0095a8",
+    color: palette.secondary,
     textAlign: 'center'
   },
   scrollView: {
-    backgroundColor: "#fff",
+    backgroundColor: palette.white,
     marginHorizontal: 16
+  },
+  scrollViewContent: {
+    paddingBottom: 100
   },
   button: {
     alignItems: "center",
     backgroundColor: "transparent",
     padding: 10,
   },
-  buttonText: { color: "#0095a8", fontSize: 20 },
+  buttonText: { color: palette.primary, fontSize: 20 },
   rightIconContainer: {
     width: 40,
     height: 40,
@@ -29,6 +33,6 @@ export const styles = StyleSheet.create({
   rightIcon: {
     width: 22,
     height: 22,
-    tintColor: '#0095a8'
+    tintColor: palette.primary
   },
 });

@@ -1,5 +1,5 @@
-import React from "react";
-import { View, Text, FlatList } from "react-native";
+import * as React from "react";
+import { View, Text, FlatList, SafeAreaView } from "react-native";
 
 import { type script, scripts } from "../../constants/sampleData";
 import { ScriptCard } from "../../components/ScriptCard";
@@ -12,13 +12,14 @@ export function HomeScreen() {
     <ScriptCard {...{ item }} />
   );
   return (
-    <View style={styles.container}>
+    <SafeAreaView style={styles.container}>
       <Text style={styles.content}>Guided Meditations</Text>
       <FlatList
         style={styles.list}
         data={scripts}
         {...{ keyExtractor, renderItem }}
+        showsVerticalScrollIndicator={false}
       />
-    </View>
+    </SafeAreaView>
   );
 }

@@ -7,7 +7,7 @@ import type { script } from "../constants/sampleData";
 export type RootStackParamList = {
   Home: undefined;
   Prompter: { script: script };
-  Player: undefined;
+  Player: { path?: string };
   Settings: undefined;
 };
 

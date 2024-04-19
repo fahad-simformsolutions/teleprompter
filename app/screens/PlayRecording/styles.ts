@@ -1,9 +1,10 @@
 import { StyleSheet } from "react-native";
+import { palette } from "../../theme/colors";
 
 export const styles = StyleSheet.create({
     container: {
       flex: 1,
-      backgroundColor: "#0095A8",
+      backgroundColor: palette.primary,
       flexDirection: "column",
       alignItems: "center",
     },
@@ -33,10 +34,11 @@ export const styles = StyleSheet.create({
     viewBar: {
       backgroundColor: "#ccc",
       height: 4,
+      width: 'auto',
       alignSelf: "stretch",
     },
     viewBarPlay: {
-      backgroundColor: "white",
+      backgroundColor: palette.secondary,
       height: 4,
       width: 0,
     },

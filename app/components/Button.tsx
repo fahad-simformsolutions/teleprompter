@@ -1,116 +1,73 @@
+import * as React from "react";
 import {
-  ActivityIndicator,
-  Image,
-  StyleSheet,
+  Pressable,
   Text,
-  TouchableOpacity,
-  View,
+  StyleSheet,
+  GestureResponderEvent,
 } from "react-native";
-import type { ReactElement, ReactNode } from "react";
+import { palette } from "../theme/colors";
 
-import React, { Component } from "react";
+export type CustomButtonProps = {
+  label: string;
+  fullWidth?: boolean;
+  buttonStyle?: object;
+  onPress: ((event: GestureResponderEvent) => void) | undefined | null;
+};
 
-const styles: any = StyleSheet.create({
-  btn: {
-    backgroundColor: "transparent",
-    alignSelf: "center",
-    borderRadius: 4,
-    borderWidth: 2,
-    width: 320,
-    height: 52,
-    borderColor: "white",
+export function Button({
+  label,
+  onPress,
+  fullWidth,
+  buttonStyle = {}
+}: CustomButtonProps) {
+  const buttonContainerStyle = StyleSheet.compose(
+    [styles.button, buttonStyle],
+    fullWidth ? styles.buttonFullWidth : {}
+  );
+  return (
+    <Pressable
+      style={({ pressed }) => [
+        buttonContainerStyle,
+        pressed ? styles.buttonPressed : {},
+      ]}
+      {...{ onPress }}
+    >
+      {({ pressed }) => (
+        <Text
+          style={[styles.buttonText, pressed ? styles.buttonPressedText : {}]}
+        >
+          {label}
+        </Text>
+      )}
+    </Pressable>
+  );
+}
 
-    alignItems: "center",
-    justifyContent: "center",
+const styles = StyleSheet.create({
+  button: {
+    borderRadius: 5,
+    padding: 10,
+    elevation: 2,
+    height: 40,
+    backgroundColor: palette.secondary,
+    marginHorizontal: 16,
+    borderWidth: 0,
   },
-  btnDisabled: {
-    backgroundColor: "rgb(243,243,243)",
-    alignSelf: "center",
-    borderRadius: 4,
-    borderWidth: 2,
-    width: 320,
-    height: 52,
-    borderColor: "#333",
-
-    alignItems: "center",
-    justifyContent: "center",
+  buttonFullWidth: {
+    width: "auto",
+    alignSelf: "stretch",
   },
-  txt: {
-    fontSize: 14,
+  buttonPressed: {
+    backgroundColor: "#FFF",
+    borderColor: palette.secondary,
+    borderWidth: 1,
+  },
+  buttonText: {
     color: "white",
+    fontWeight: "bold",
+    textAlign: "center",
   },
-  imgLeft: {
-    width: 24,
-    height: 24,
-    position: "absolute",
-    left: 16,
+  buttonPressedText: {
+    color: palette.secondary,
   },
 });
-
-interface ItemProps {
-  children?: ReactNode;
-  isLoading?: boolean;
-  isDisabled?: boolean;
-  onPress?: () => void;
-  style?: any;
-  disabledStyle?: any;
-  textStyle?: any;
-  imgLeftSrc?: any;
-  imgLeftStyle?: any;
-  indicatorColor?: string;
-  activeOpacity?: number;
-}
-
-class Button extends Component<ItemProps, any> {
-  private static defaultProps: Partial<ItemProps> = {
-    isLoading: false,
-    isDisabled: false,
-    style: styles.btn,
-    textStyle: styles.txt,
-    imgLeftStyle: styles.imgLeft,
-    indicatorColor: "white",
-    activeOpacity: 0.5,
-  };
-
-  constructor(props: ItemProps) {
-    super(props);
-    this.state = {};
-  }
-
-  public render(): ReactElement {
-    if (this.props.isDisabled) {
-      return (
-        <View style={this.props.disabledStyle}>
-          <Text style={this.props.textStyle}>{this.props.children}</Text>
-        </View>
-      );
-    }
-
-    if (this.props.isLoading) {
-      return (
-        <View style={this.props.style}>
-          <ActivityIndicator size="small" color={this.props.indicatorColor} />
-        </View>
-      );
-    }
-
-    return (
-      <TouchableOpacity
-        activeOpacity={this.props.activeOpacity}
-        onPress={this.props.onPress}
-      >
-        <View style={this.props.style}>
-          {this.props.imgLeftSrc ? (
-            <Image
-              style={this.props.imgLeftStyle}
-              source={this.props.imgLeftSrc}
-            />
-          ) : null}
-          <Text style={this.props.textStyle}>{this.props.children}</Text>
-        </View>
-      </TouchableOpacity>
-    );
-  }
-}
-
-export default Button;

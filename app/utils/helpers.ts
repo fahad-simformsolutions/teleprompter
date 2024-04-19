@@ -26,6 +26,15 @@ export function timeToSpeak(
   return Math.floor((60 / wordsPerMinute) * words.length);
 }
 
+export function formatedDuration(seconds: number): string {
+  const minutes = Math.floor(seconds/60);
+  const secondsRemaining = seconds % 60;
+
+  return `${minutes.toString().padStart(2, '0')}:${secondsRemaining.toString().padStart(2, '0')}`
+}
+
+//== General Helpers ==//
+
 /**
  * function getUniqueId
  * Generates unique Ids in the format: "jyc9wbxw-wdk52s"
@@ -37,6 +46,8 @@ export function getUniqueId(): string {
 
   return `${prefix}-${suffix}`;
 }
+
+//== Async Storage Helpers ==//
 
 export const getValue = async (key: string) => {
   try {
